@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import './app.css';
+import "./app.css";
 import Frase from "./components/Frase";
+import Spinner from "./components/Spinner";
 import { Button, Container } from "react-bootstrap";
 
 function App() {
@@ -41,13 +42,18 @@ function App() {
           />
         </div>
         {/* className="btn btn-warning text-dark btn-sm col-3 mt-5 mb-5" */}
-        <Button type="button" variant={"warning"} className="w-50 mb-5">
+        <Button
+          type="button"
+          variant={"warning"}
+          className="w-50 mb-5"
+          onClick={consultarAPI}
+        >
           Obtener frase
         </Button>
       </div>
-      <div className="card-body">
-        <Frase personaje={personaje}></Frase>
-      </div>
+
+      <Frase personaje={personaje}></Frase>
+      <Spinner></Spinner>
     </Container>
   );
 }
