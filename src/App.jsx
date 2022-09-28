@@ -10,10 +10,16 @@ function App() {
     consultarAPI();
   },[])
 
-  const consultarAPI = ()=>{
+  const consultarAPI = async ()=>{
     try {
-      const respuesta = fetch('https://thesimpsonsquoteapi.glitch.me/quotes')
+      // aqui hago la peticion o request
+      const respuesta = await fetch('https://thesimpsonsquoteapi.glitch.me/quotes')
       console.log(respuesta);
+      const dato = await respuesta.json();
+      console.log(dato[0])
+      //guardar la frase del personaje en el state
+      setPersonaje(dato[0]);
+
     } catch (error) {
       console.log(error)
       // mostrar un mensaje de error al usuario
@@ -41,7 +47,7 @@ function App() {
           </button>
         </div>
         <div className="card-body">
-          <Frase></Frase>
+          <Frase personaje={personaje}></Frase>
         </div>
       </div>
     </div>
