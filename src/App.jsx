@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Frase from "./components/Frase";
 
