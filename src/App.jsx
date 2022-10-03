@@ -7,6 +7,7 @@ import { Button, Container } from "react-bootstrap";
 
 function App() {
   const [personaje, setPersonaje] = useState({});
+  const [mostrarSpinner, setMostrarSpinner] = useState(true);
 
   useEffect(() => {
     // la consulta de la api solo sucede en el montaje
@@ -15,6 +16,8 @@ function App() {
 
   const consultarAPI = async () => {
     try {
+      //cambiar el valor del state mostrarSpinner para que se vea el componente Spinner
+      setMostrarSpinner(true)
       // aqui hago la peticion o request
       const respuesta = await fetch(
         "https://thesimpsonsquoteapi.glitch.me/quotes"
@@ -24,11 +27,24 @@ function App() {
       console.log(dato[0]);
       //guardar la frase del personaje en el state
       setPersonaje(dato[0]);
+      //cambiar el valor de mostrarSpinner para que se vea el componente Frase
+      setMostrarSpinner(false)
     } catch (error) {
       console.log(error);
       // mostrar un mensaje de error al usuario
     }
   };
+
+  //cargar un componente condicional
+  // usamos el operador ternario
+  // (condicion logica)?(codigo si se cumple la condicion logica):(logica si no se cumple la condicion)
+  // const componenteCondicional = (mostrarSpinner)
+  const componenteCondicional =
+    mostrarSpinner === true ? (
+      <Spinner></Spinner>
+    ) : (
+      <Frase personaje={personaje}></Frase>
+    );
 
   return (
     <Container>
@@ -50,10 +66,8 @@ function App() {
         >
           Obtener frase
         </Button>
+        {componenteCondicional}
       </div>
-
-      <Frase personaje={personaje}></Frase>
-      <Spinner></Spinner>
     </Container>
   );
 }
